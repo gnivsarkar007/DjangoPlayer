@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameHolder"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="false" >
+
+    <RelativeLayout
+        android:id="@+id/holder_rel_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:clickable="false"
+    	android:focusable="false">
+		
+        <TextView
+            android:id="@+id/text_song_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/playButton1"
+            android:clickable="false"
+            android:focusable="false"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/playButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:focusable="false"
+            android:clickable="false"
+            android:background="@drawable/play_button" />
+
+        <TextView
+            android:id="@+id/text_artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/text_song_name"
+            android:layout_alignParentRight="true"
+            android:focusable="false"
+            android:layout_below="@+id/text_song_name"
+            android:clickable="false"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</FrameLayout>

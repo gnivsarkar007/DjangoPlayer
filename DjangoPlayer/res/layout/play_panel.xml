@@ -1,0 +1,72 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+ 		android:clickable="true"
+        android:focusable="true"
+ 		android:background="@color/creamy" >
+
+        <Button
+            android:id="@+id/b1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/apollo_holo_light_repeat_normal" />
+
+        <Button
+            android:id="@+id/button5"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/apollo_holo_light_shuffle_normal" />
+
+        <Button
+            android:id="@+id/button4"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/button5"
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/apollo_holo_light_next" />
+
+        <Button
+            android:id="@+id/button3"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:background="@drawable/apollo_holo_light_play" />
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/b1"
+            android:background="@drawable/apollo_holo_light_previous"
+            android:clickable="false"
+            android:focusable="false" />
+
+    </RelativeLayout>
+
+</FrameLayout>
