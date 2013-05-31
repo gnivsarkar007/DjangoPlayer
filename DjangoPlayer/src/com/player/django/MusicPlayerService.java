@@ -52,7 +52,17 @@ public class MusicPlayerService extends Service implements
 		else if(intent.getAction().equalsIgnoreCase("com.player.django.action.UNPAUSE")){
 			if(!myPlayer.isPlaying()) myPlayer.start();
 		}
-		return START_REDELIVER_INTENT;
+		else if(intent.getAction().equalsIgnoreCase("com.player.django.action.NEXT")||intent.getAction().equalsIgnoreCase("com.player.django.action.PREVIOUS")){
+			try {
+				myPlayer.reset();
+				String i=intent.getStringExtra("song");
+				myPlayer.setDataSource(getApplicationContext(),Uri.parse(i));
+				myPlayer.prepareAsync();
+			}  catch (Exception e) {
+				e.printStackTrace();
+			}	
+		}
+		return START_NOT_STICKY;
 	}
 
 	@Override
@@ -84,7 +94,7 @@ public class MusicPlayerService extends Service implements
 	@Override
 	public void onPrepared(MediaPlayer arg0) {
 		// TODO Auto-generated method stub
-		arg0.start();
+		myPlayer.start();
 	}
 
 	@Override

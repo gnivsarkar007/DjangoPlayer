@@ -11,30 +11,35 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 
-public class MainActivity extends FragmentActivity implements OnGestureListener,SongsViewFragment.onSongItemSelectedListener{
+public class MainActivity extends FragmentActivity implements
+		OnGestureListener, SongsViewFragment.onSongItemSelectedListener {
 
-	ListView mainList;
-	SongsRetriever sr;
-	NonPlayingFragment f2;
-	public static boolean flag=true;
+	public ListView mainList;
+	public SongsRetriever sr;
+	public NonPlayingFragment f2;
+	public static boolean flag = true;
+	public static int NOW_PLAYING_POSITION = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.frag_list_container);
-		
-		getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.frag_anim_1, R.anim.frag_anim_1).commit();
-		
-		NonPlayingFragment play=new NonPlayingFragment();
-		
-		getSupportFragmentManager().beginTransaction().replace(R.id.fragment3,play).commit();
-		
+
+		getSupportFragmentManager().beginTransaction()
+				.setCustomAnimations(R.anim.frag_anim_1, R.anim.frag_anim_1)
+				.commit();
+
+		NonPlayingFragment play = new NonPlayingFragment();
+
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment3, play).commit();
+
 	}
 
-	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -72,34 +77,32 @@ public class MainActivity extends FragmentActivity implements OnGestureListener,
 	}
 
 	@Override
-	public void whichItemselected(int position,SongsRetriever song) {
-		Intent i=new Intent(this,MusicPlayerService.class);
-		if(flag){
-		
-		try {
-			
-			flag=false;
-			PlayPanelFrag play=new PlayPanelFrag();
-			getSupportFragmentManager().beginTransaction().replace(R.id.fragment2,play).commit();
-			i.setAction("com.player.django.action.PLAY");
-			i.putExtra("name",position);
-			i.putExtra("song", song.songsList.get(position).getURI().toString());
-			SongsViewFragment.songPosition=position;
-			startService(i);
-			
-		} catch (Exception e) {
-			
-			Log.d("Activity"," ".concat(e.toString()));
-		}
-		
-	}
-		else{
+	public void whichItemselected(int position, SongsRetriever song) {
+		NOW_PLAYING_POSITION = position;
+		sr=song;
+		Intent i = new Intent(this, MusicPlayerService.class);
+		if (flag) {
+
+			try {
+
+				flag = false;
+				PlayPanelFrag play = new PlayPanelFrag();
+				getSupportFragmentManager().beginTransaction()
+						.replace(R.id.fragment2, play).commit();
+				i.setAction("com.player.django.action.PLAY");
+			} catch (Exception e) {
+
+				Log.d("Activity", " ".concat(e.toString()));
+			}
+
+		} else {
 			i.setAction("com.player.django.action.CHANGE");
-			i.putExtra("name",position);
-			i.putExtra("song", song.songsList.get(position).getURI().toString());
-			SongsViewFragment.songPosition=position;
-			startService(i);
+
 		}
+		i.putExtra("name", NOW_PLAYING_POSITION);
+		i.putExtra("song", song.songsList.get(NOW_PLAYING_POSITION).getURI()
+				.toString());
+		startService(i);
 	}
 
 	@Override
@@ -108,7 +111,6 @@ public class MainActivity extends FragmentActivity implements OnGestureListener,
 		return false;
 	}
 
-
 	@Override
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			float velocityY) {
@@ -116,37 +118,32 @@ public class MainActivity extends FragmentActivity implements OnGestureListener,
 		return false;
 	}
 
-
 	@Override
 	public void onLongPress(MotionEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
 		// TODO Auto-generated method stub
-		Log.d("MainAct","Fling");
+		Log.d("MainAct", "Fling");
 		return true;
 	}
-
 
 	@Override
 	public void onShowPress(MotionEvent e) {
 		// TODO Auto-generated method stub
-		Log.d("MainAct","Fling");
-		
-	}
+		Log.d("MainAct", "Fling");
 
+	}
 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
 		// TODO Auto-generated method stub
-		Log.d("MainAct","Fling");
+		Log.d("MainAct", "Fling");
 		return true;
 	}
-		
-	
+
 }

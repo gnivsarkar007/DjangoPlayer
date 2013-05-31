@@ -17,16 +17,14 @@ public static boolean pauseFlag=true;
 @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState) {
-	// TODO Auto-generated method stub
-	fl=inflater.inflate(R.layout.play_panel, null);
 	
-	return fl;
+	fl=inflater.inflate(R.layout.play_panel, null);
+		return fl;
 }
 @Override
 public void onActivityCreated(Bundle savedInstanceState) {
-	// TODO Auto-generated method stub
+	
 	super.onActivityCreated(savedInstanceState);
-	//fl.setOnClickListener(this);
 	Button b1=(Button)getActivity().findViewById(R.id.button3);
 	b1.setOnClickListener(this);
 	mn=(MainActivity) getActivity();
@@ -39,7 +37,7 @@ public void onActivityCreated(Bundle savedInstanceState) {
 
 @Override
 public void onClick(View v) {
-	// TODO Auto-generated method stub
+	
 	Intent i=new Intent(this.getActivity(),MusicPlayerService.class);
 	switch(v.getId()){
 	case R.id.button3:if(!pauseFlag){
@@ -53,8 +51,21 @@ public void onClick(View v) {
 	break;
 	case R.id.b1:
 	case R.id.button4:
+		i.setAction("com.player.django.action.NEXT");
+		MainActivity.NOW_PLAYING_POSITION+=1;
+		if(MainActivity.NOW_PLAYING_POSITION>mn.sr.songsList.size()) MainActivity.NOW_PLAYING_POSITION=0;
+		i.putExtra("name", MainActivity.NOW_PLAYING_POSITION);
+		i.putExtra("song", mn.sr.songsList.get(MainActivity.NOW_PLAYING_POSITION).getURI()
+				.toString());
+		break;
 	case R.id.button5:
-	case R.id.button2: break;
+	case R.id.button2: i.setAction("com.player.django.action.PREVIOUS");
+	MainActivity.NOW_PLAYING_POSITION-=1;
+	if(MainActivity.NOW_PLAYING_POSITION<0) MainActivity.NOW_PLAYING_POSITION=mn.sr.songsList.size();
+	i.putExtra("name", MainActivity.NOW_PLAYING_POSITION);
+	i.putExtra("song", mn.sr.songsList.get(MainActivity.NOW_PLAYING_POSITION).getURI()
+			.toString());
+	break;
 	}
 	getActivity().startService(i);
 }
